@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <main class="page">
+  <main class="page" id="page">
     <!-- 顶部头部 -->
     <header class="topbar">
       <div class="brand">
@@ -21,11 +21,11 @@
       </div>
 
       <div class="top-actions">
-        <button class="ghost-btn">
+        <button class="ghost-btn" id="btnFillImport" title="上传资料让 AI 自动识别并填表">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5-7 5 7"/><path d="M5 21h14"/></svg>
           导入识别填充
         </button>
-        <button class="ghost-btn">
+        <button class="ghost-btn" id="btnPickProduct" title="从已录入的商品里挑一个">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
           选择已有商品
         </button>
@@ -34,19 +34,19 @@
 
     <!-- 步骤指示器 -->
     <section class="stepper">
-      <div class="step active">
+      <div class="step active" data-step="1">
         <div class="step-num">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2.5 2"/></svg>
         </div>
         <div class="step-label">信息确认</div>
       </div>
       <div class="step-line"></div>
-      <div class="step">
+      <div class="step" data-step="2">
         <div class="step-num">2</div>
         <div class="step-label">AI 分析推荐</div>
       </div>
       <div class="step-line"></div>
-      <div class="step">
+      <div class="step" data-step="3">
         <div class="step-num">3</div>
         <div class="step-label">生成脚本</div>
       </div>
@@ -68,74 +68,32 @@
 
         <div class="field">
           <label class="field-label">我的想法 <span class="required">必填</span></label>
-          <textarea id="idea" class="textarea" rows="6" placeholder="例如：我想突出这款卡牌的稀有度和收藏价值……">我想突出这款卡牌的稀有度和收藏价值，吸引用户拆卡的惊喜感，让观众有强烈的拥有欲。</textarea>
-          <div class="counter"><span id="ideaCount">41</span>/500</div>
+          <textarea id="idea" class="textarea" rows="6" placeholder="例如：我想突出这款卡牌的稀有度和收藏价值……"></textarea>
+          <div class="counter"><span id="ideaCount">0</span>/500</div>
         </div>
 
-        <div class="field">
+        <!-- 剧本参考 slot -->
+        <div class="field" data-slot="doc">
           <label class="field-label">剧本参考 <span class="hint">可多选上传，支持拖拽</span></label>
-          <div class="file-row">
-            <div class="file-icon doc">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h6"/></svg>
-            </div>
-            <div class="file-info">
-              <div class="file-name">据贬抓卡剧本参考.txt</div>
-              <div class="file-meta">2.1 KB</div>
-            </div>
-            <button class="icon-btn" title="预览">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
-            <button class="icon-btn danger" title="删除">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-            </button>
-          </div>
+          <div class="slot-list" data-list="doc"></div>
         </div>
 
-        <div class="field">
+        <!-- 视频参考 slot -->
+        <div class="field" data-slot="video">
           <label class="field-label">视频参考 <span class="hint">可选</span></label>
-          <div class="file-row">
-            <div class="file-thumb video" aria-hidden="true">
-              <span class="thumb-label">00:55</span>
-            </div>
-            <div class="file-info">
-              <div class="file-name">抓出稀有卡瞬间燃烬.mp4</div>
-              <div class="file-meta">24.5 MB</div>
-            </div>
-            <button class="icon-btn" title="预览">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
-            <button class="icon-btn danger" title="删除">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-            </button>
-          </div>
+          <div class="slot-list" data-list="video"></div>
         </div>
 
-        <div class="field">
+        <!-- 图片参考 slot -->
+        <div class="field" data-slot="image">
           <label class="field-label">图片参考 <span class="hint">可选，支持多图</span></label>
-          <div class="file-row">
-            <div class="file-img" style="background-image: linear-gradient(135deg, #243b6a, #5b6dd0);" aria-hidden="true"></div>
-            <div class="file-img" style="background-image: linear-gradient(135deg, #6e3aa3, #b56cd9);" aria-hidden="true"></div>
-            <div class="file-img" style="background-image: linear-gradient(135deg, #1e3a5f, #73a5d6);" aria-hidden="true"></div>
-            <div class="file-info">
-              <div class="file-name">卡牌质感参考图.jpg</div>
-              <div class="file-meta">3.2 MB</div>
-            </div>
-            <button class="icon-btn" title="预览">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
-            <button class="icon-btn danger" title="删除">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-            </button>
-          </div>
+          <div class="slot-list" data-list="image"></div>
         </div>
 
-        <div class="field">
+        <!-- 其他资料 slot -->
+        <div class="field" data-slot="other">
           <label class="field-label">其他资料 <span class="hint">可选</span></label>
-          <div class="dropzone">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
-            <div class="dropzone-text">支持 txt、doc、pdf、mp4、jpg、png 格式，单个文件不超过 200MB</div>
-            <div class="dropzone-action">+ 添加文件</div>
-          </div>
+          <div class="slot-list" data-list="other"></div>
         </div>
       </div>
 
@@ -153,72 +111,70 @@
           </div>
 
           <div class="product-top">
-            <div class="product-cover" aria-hidden="true">
+            <div class="product-cover" id="productCover" aria-hidden="true">
               <div class="cover-card c1"></div>
               <div class="cover-card c2"></div>
               <div class="cover-card c3"></div>
-              <button class="play" title="播放">
+              <button class="play" id="productPlay" title="播放预览">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
               </button>
             </div>
             <div class="product-fields">
               <div class="field-row">
                 <label class="field-label">商品名称 <span class="required">*</span></label>
-                <input class="input" type="text" value="不凡玩品 海贼王 OP05 新世界篇 收藏卡牌" />
-                <div class="counter right"><span>20</span>/50</div>
+                <input class="input" id="fName" type="text" placeholder="如：海贼王 OP05 新世界篇 收藏卡牌" />
+                <div class="counter right"><span id="fNameCount">0</span>/50</div>
               </div>
 
               <div class="grid-2">
                 <div class="field-row">
                   <label class="field-label">商品类目</label>
                   <div class="select">
-                    <select>
+                    <select id="fCategory">
+                      <option value="">请选择类目</option>
                       <option>收藏卡牌</option>
                       <option>玩具模型</option>
                       <option>潮玩手办</option>
+                      <option>文具书籍</option>
+                      <option>服饰配件</option>
                     </select>
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                   </div>
                 </div>
                 <div class="field-row">
                   <label class="field-label">品牌 <span class="hint">选填</span></label>
-                  <input class="input" type="text" value="不凡玩品 BUFFUN" />
-                  <div class="counter right"><span>10</span>/30</div>
+                  <input class="input" id="fBrand" type="text" placeholder="选填" />
+                  <div class="counter right"><span id="fBrandCount">0</span>/30</div>
                 </div>
               </div>
 
               <div class="field-row">
                 <label class="field-label">核心卖点 <span class="required">*</span></label>
-                <div class="tag-input">
-                  <span class="tag">官方正版 <button class="tag-x">×</button></span>
-                  <span class="tag">稀有度高 <button class="tag-x">×</button></span>
-                  <span class="tag">收藏价值 <button class="tag-x">×</button></span>
-                  <span class="tag">精美卡牌设计 <button class="tag-x">×</button></span>
-                  <span class="tag">拆卡惊喜感 <button class="tag-x">×</button></span>
-                  <input class="tag-input-field" placeholder="输入后回车" />
+                <div class="tag-input" id="fTags">
+                  <input class="tag-input-field" placeholder="输入后回车添加" />
                 </div>
-                <div class="counter right"><span>53</span>/200</div>
+                <div class="counter right"><span id="fTagsCount">0</span>/200</div>
               </div>
 
               <div class="grid-2">
                 <div class="field-row">
                   <label class="field-label">适合人群 <span class="hint">选填</span></label>
-                  <input class="input" type="text" value="动漫爱好者,卡牌收藏玩家,送礼人群" />
-                  <div class="counter right"><span>17</span>/100</div>
+                  <input class="input" id="fAudience" type="text" placeholder="例如：动漫爱好者,送礼人群" />
+                  <div class="counter right"><span id="fAudienceCount">0</span>/100</div>
                 </div>
                 <div class="field-row">
                   <label class="field-label">参考价格 <span class="hint">选填</span></label>
                   <div class="input-with-prefix">
                     <span class="prefix">¥</span>
-                    <input class="input" type="text" value="99" />
+                    <input class="input" id="fPrice" type="text" placeholder="99" />
                   </div>
                 </div>
               </div>
 
               <div class="field-row">
                 <label class="field-label">主要规格 / 款式 <span class="hint">选填</span></label>
-                <input class="input" type="text" value="每包5张 / 每盒30包" />
-                <div class="counter right"><span>12</span>/50</div>
+                <input class="input" id="fSpec" type="text" placeholder="例如：每包 5 张 / 每盒 30 包" />
+                <div class="counter right"><span id="fSpecCount">0</span>/50</div>
               </div>
             </div>
           </div>
@@ -235,76 +191,19 @@
             </div>
           </div>
 
-          <ul class="resource-list">
-            <li class="resource-item">
-              <div class="resource-icon">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 17l-5-5-9 9"/></svg>
+          <ul class="resource-list" id="resourceList">
+            <li class="resource-item resource-empty">
+              <div class="resource-main resource-main-empty">
+                尚未导入任何资料，使用顶部「导入识别填充」自动上传并识别，或在下方手动添加。
               </div>
-              <div class="resource-main">
-                <div class="resource-name">商品图（5 张）</div>
-                <div class="resource-previews">
-                  <div class="prev" style="background:linear-gradient(135deg,#1a2d5c,#3954ad);"></div>
-                  <div class="prev" style="background:linear-gradient(135deg,#5c2478,#9c4cd1);"></div>
-                  <div class="prev" style="background:linear-gradient(135deg,#1e3a5f,#6db1e8);"></div>
-                  <div class="prev more">+2</div>
-                </div>
-              </div>
-              <button class="icon-btn" title="预览">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-              <button class="icon-btn danger" title="删除">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-              </button>
-            </li>
-
-            <li class="resource-item">
-              <div class="resource-icon link">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>
-              </div>
-              <div class="resource-main">
-                <div class="resource-name">商品链接</div>
-                <a class="resource-link" href="#">https://detail.tmall.com/...</a>
-              </div>
-              <button class="icon-btn" title="预览">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-              <button class="icon-btn danger" title="删除">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-              </button>
-            </li>
-
-            <li class="resource-item">
-              <div class="resource-icon pdf">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-              </div>
-              <div class="resource-main">
-                <div class="resource-name">商品详情文档</div>
-                <div class="resource-sub">product_detail.pdf</div>
-              </div>
-              <button class="icon-btn" title="预览">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-              <button class="icon-btn danger" title="删除">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-              </button>
-            </li>
-
-            <li class="resource-item">
-              <div class="resource-icon pdf">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-              </div>
-              <div class="resource-main">
-                <div class="resource-name">商品说明书</div>
-                <div class="resource-sub">manual.pdf</div>
-              </div>
-              <button class="icon-btn" title="预览">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              </button>
-              <button class="icon-btn danger" title="删除">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
-              </button>
             </li>
           </ul>
+
+          <div class="dropzone dropzone-resource" id="dropzone-resource">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+            <div class="dropzone-text">支持 jpg / png / pdf / doc / mp4 / 链接，单个文件不超过 200MB</div>
+            <div class="dropzone-action">+ 添加文件 / 粘贴链接</div>
+          </div>
         </div>
 
         <div class="card">
@@ -314,29 +213,17 @@
             </div>
             <div>
               <h2 class="card-title">AI 识别的商品信息</h2>
-              <p class="card-sub">AI 已自动识别以下信息，您可以检查并编辑</p>
+              <p class="card-sub">AI 已自动识别以下信息，点击行内文字可直接编辑</p>
             </div>
           </div>
 
-          <div class="ai-grid">
-            <div class="ai-row">
-              <div class="ai-k">材质</div>
-              <div class="ai-v">纸质卡牌</div>
-            </div>
-            <div class="ai-row">
-              <div class="ai-k">系列</div>
-              <div class="ai-v">海贼王 OP05 新世界篇</div>
-            </div>
-            <div class="ai-row">
-              <div class="ai-k">发行方</div>
-              <div class="ai-v">BANDAI</div>
-            </div>
-            <div class="ai-row">
-              <div class="ai-k">适用年龄</div>
-              <div class="ai-v">15 岁及以上</div>
-            </div>
+          <div class="ai-grid" id="aiGrid">
+            <div class="ai-row" data-key="材质"><div class="ai-k">材质</div><div class="ai-v" contenteditable="true"></div></div>
+            <div class="ai-row" data-key="系列"><div class="ai-k">系列</div><div class="ai-v" contenteditable="true"></div></div>
+            <div class="ai-row" data-key="发行方"><div class="ai-k">发行方</div><div class="ai-v" contenteditable="true"></div></div>
+            <div class="ai-row" data-key="适用年龄"><div class="ai-k">适用年龄</div><div class="ai-v" contenteditable="true"></div></div>
           </div>
-          <div class="ai-more">展开更多识别信息 ▾</div>
+          <div class="ai-more" id="aiMore">展开更多识别信息 ▾</div>
         </div>
       </div>
     </section>
@@ -348,15 +235,15 @@
         您的信息将被严格保密，仅用于本次脚本生成
       </div>
       <div class="footer-actions">
-        <button class="btn-ghost">
+        <button class="btn-ghost" id="btnClear">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
           清空内容
         </button>
-        <button class="btn-secondary">
+        <button class="btn-secondary" id="btnSaveDraft">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
           保存草稿
         </button>
-        <button class="btn-primary">
+        <button class="btn-primary" id="btnAnalyze">
           <span class="btn-primary-main">
             AI 分析并生成创作方向
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
@@ -366,6 +253,152 @@
       </div>
     </footer>
   </main>
+
+  <!-- ============== 模态层：通用预览 ============== -->
+  <div class="modal" id="modalPreview" aria-hidden="true">
+    <div class="modal-mask" data-close></div>
+    <div class="modal-box modal-preview-box">
+      <button class="modal-close" data-close aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+      </button>
+      <div class="modal-preview-title" id="previewTitle">预览</div>
+      <div class="modal-preview-body" id="previewBody"></div>
+      <div class="modal-preview-meta" id="previewMeta"></div>
+    </div>
+  </div>
+
+  <!-- ============== 模态层：导入识别填充 ============== -->
+  <div class="modal" id="modalFill" aria-hidden="true">
+    <div class="modal-mask" data-close></div>
+    <div class="modal-box modal-fill-box">
+      <button class="modal-close" data-close aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+      </button>
+
+      <div class="modal-head">
+        <div class="modal-head-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5-7 5 7"/><path d="M5 21h14"/></svg>
+        </div>
+        <div>
+          <h3 class="modal-title">AI 导入识别填充</h3>
+          <p class="modal-sub">上传商品链接/资料，AI 将自动识别并填表</p>
+        </div>
+      </div>
+
+      <div class="fill-tabs">
+        <button class="fill-tab active" data-fill-mode="link">粘贴链接</button>
+        <button class="fill-tab" data-fill-mode="upload">上传资料</button>
+      </div>
+
+      <div class="fill-panel active" data-panel="link">
+        <label class="field-label">商品链接（淘宝 / 京东 / 天猫 / 自有页）</label>
+        <input class="input" id="fillLinkInput" type="text" placeholder="https://detail.tmall.com/item.htm?id=..." />
+        <div class="fill-quick">
+          <span class="hint">快速体验：</span>
+          <button class="chip" data-sample-link="https://detail.tmall.com/item.htm?id=op05">海贼王 OP05 卡牌</button>
+          <button class="chip" data-sample-link="https://item.jd.com/123456.html">万代高达拼装</button>
+          <button class="chip" data-sample-link="https://shop.example.com/popmart-skullpanda">泡泡玛特 SKULLPANDA</button>
+        </div>
+      </div>
+
+      <div class="fill-panel" data-panel="upload">
+        <label class="dropzone fill-dropzone" id="fillDropzone">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+          <div class="dropzone-text">拖拽文件到此处，或点击选择</div>
+          <div class="dropzone-action">+ 选择文件</div>
+          <input type="file" id="fillFileInput" multiple hidden />
+        </label>
+        <div class="fill-files" id="fillFiles"></div>
+      </div>
+
+      <div class="fill-progress" id="fillProgress" hidden>
+        <div class="fill-progress-step" data-step="1"><span class="dot"></span>解析链接/上传</div>
+        <div class="fill-progress-step" data-step="2"><span class="dot"></span>提取图片与文字</div>
+        <div class="fill-progress-step" data-step="3"><span class="dot"></span>AI 识别商品属性</div>
+        <div class="fill-progress-step" data-step="4"><span class="dot"></span>填充至表单</div>
+      </div>
+
+      <div class="modal-foot">
+        <button class="btn-ghost" data-close>取消</button>
+        <button class="btn-primary" id="btnFillGo">
+          <span class="btn-primary-main">
+            开始识别
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== 模态层：选择已有商品 ============== -->
+  <div class="modal" id="modalPick" aria-hidden="true">
+    <div class="modal-mask" data-close></div>
+    <div class="modal-box modal-pick-box">
+      <button class="modal-close" data-close aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6l-12 12"/></svg>
+      </button>
+
+      <div class="modal-head">
+        <div class="modal-head-icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </div>
+        <div>
+          <h3 class="modal-title">选择已有商品</h3>
+          <p class="modal-sub">从商品库中挑选一个，AI 将自动填表并识别</p>
+        </div>
+      </div>
+
+      <div class="pick-search">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input class="input" id="pickSearch" type="text" placeholder="搜索商品名称 / 品牌 / 类目" />
+      </div>
+
+      <div class="pick-grid" id="pickGrid"></div>
+    </div>
+  </div>
+
+  <!-- ============== 模态层：分析中/完成 ============== -->
+  <div class="modal" id="modalAnalyze" aria-hidden="true">
+    <div class="modal-mask" data-close></div>
+    <div class="modal-box modal-analyze-box">
+      <div class="analyze-stage" id="analyzeStage">
+        <div class="analyze-spin">
+          <svg viewBox="0 0 50 50" width="44" height="44"><circle cx="25" cy="25" r="20" fill="none" stroke="#e5e9f3" stroke-width="4"/><circle cx="25" cy="25" r="20" fill="none" stroke="#4f6bff" stroke-width="4" stroke-dasharray="80 200" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/></circle></svg>
+        </div>
+        <h3 class="modal-title" id="analyzeTitle">AI 正在分析您输入的信息…</h3>
+        <p class="modal-sub" id="analyzeText">解析用户想法 · 提炼核心卖点 · 推荐最佳脚本生成路径</p>
+        <ul class="analyze-list" id="analyzeList">
+          <li data-step="1">📝 阅读「我的想法」…</li>
+          <li data-step="2">🖼 分析上传的图片/视频…</li>
+          <li data-step="3">🏷 提取商品标签与卖点…</li>
+          <li data-step="4">🧠 生成 3 条候选创作方向…</li>
+        </ul>
+      </div>
+
+      <div class="analyze-result" id="analyzeResult" hidden>
+        <div class="analyze-check">
+          <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>
+        </div>
+        <h3 class="modal-title">分析完成，已生成 3 条创作方向</h3>
+        <p class="modal-sub">下一步将进入「AI 分析推荐」页，您可以挑选并继续生成脚本。</p>
+        <div class="modal-foot">
+          <button class="btn-ghost" data-close>留在本页</button>
+          <button class="btn-primary" id="btnGoStep2">
+            <span class="btn-primary-main">
+              进入第 2 步
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== Toast ============== -->
+  <div class="toast" id="toast" hidden></div>
+
+  <!-- 隐藏的全局 file input -->
+  <input type="file" id="globalFile" multiple hidden />
 
   <script src="./script.js"></script>
 </body>
